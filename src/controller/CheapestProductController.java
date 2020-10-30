@@ -3,7 +3,7 @@ package controller;
 import model.CheapestProduct;
 import model.Product;
 import model.Specification;
-import util.CheapestAlgorithm;
+import model.CheapestAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package util;
+package model;
 
 import model.CheapestProduct;
 import model.Price;
@@ -7,7 +7,6 @@ import model.Specification;
 
 import java.util.Random;
 import java.util.function.Consumer;
-
 
 public class CheapestAlgorithm extends Thread {
     private final Specification specification;
