@@ -1,8 +1,5 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * The type Product.
  */
@@ -11,6 +8,25 @@ public class Product {
     private String name;
     private String desc;
     private Price price;
+
+    /**
+     * Instantiates a new Product.
+     */
+    public Product() {
+    }
+
+    /**
+     * Instantiates a new Product.
+     *
+     * @param name  the name
+     * @param desc  the desc
+     * @param price the price
+     */
+    public Product(String name, String desc, Price price) {
+        this.name = name;
+        this.desc = desc;
+        this.price = price;
+    }
 
     public int getId() {
         return id;
@@ -71,24 +87,6 @@ public class Product {
      * @param price the price
      */
     public void setPrice(Price price) {
-        this.price = price;
-    }
-
-    /**
-     * Instantiates a new Product.
-     */
-    public Product() {}
-
-    /**
-     * Instantiates a new Product.
-     *
-     * @param name  the name
-     * @param desc  the desc
-     * @param price the price
-     */
-    public Product(String name, String desc, Price price) {
-        this.name = name;
-        this.desc = desc;
         this.price = price;
     }
 }

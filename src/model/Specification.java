@@ -1,15 +1,16 @@
 package model;
 
-import java.util.*;
-
 /**
  * The type Product type.
  */
 public abstract class Specification {
     private Product product;
     private int quantity;
+
     public abstract Specification clone();
+
     public abstract boolean isValid(Product product);
+
     public abstract Price getPrice();
 
     /**

@@ -1,11 +1,11 @@
 package controller;
 
-import model.*;
+import model.CheapestProduct;
+import model.Product;
+import model.Specification;
 import util.CheapestAlgorithm;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**

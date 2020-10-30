@@ -5,6 +5,12 @@ public class CheapestProduct {
     private Price price;
     private int quantity;
 
+    public CheapestProduct(Product product, Price price, int quantity) {
+        this.product = product;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -26,12 +32,6 @@ public class CheapestProduct {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public CheapestProduct(Product product, Price price, int quantity) {
-        this.product = product;
-        this.price = price;
         this.quantity = quantity;
     }
 

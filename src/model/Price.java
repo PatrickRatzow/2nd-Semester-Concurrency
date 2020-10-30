@@ -9,7 +9,8 @@ public class Price implements Comparable<Price> {
     /**
      * Instantiates a new Price.
      */
-    public Price() {}
+    public Price() {
+    }
 
     /**
      * Instantiates a new Price.

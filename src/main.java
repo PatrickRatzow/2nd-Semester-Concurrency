@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 public class main {
-    private static Random random = new Random();
-    private static CheapestProductController cheapestProductController = new CheapestProductController();
+    private static final Random random = new Random();
+    private static final CheapestProductController cheapestProductController = new CheapestProductController();
 
     public static void main(String[] args) throws InterruptedException {
         // Start time for benchmark
