@@ -1,9 +1,9 @@
 package controller;
 
+import model.CheapestAlgorithm;
 import model.CheapestProduct;
 import model.Product;
 import model.Specification;
-import model.CheapestAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class CheapestProductController {
     private CheapestProduct cheapest;
 
     private synchronized void updateCheapest(CheapestProduct cheapestProduct) {
-        // If we don't have a product at all, just set the first product to cheapest
+        // If we don't have a cheapest product, just set the first product to cheapest
         if (cheapest == null) {
             cheapest = cheapestProduct;
 
