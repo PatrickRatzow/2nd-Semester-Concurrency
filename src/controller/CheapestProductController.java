@@ -12,9 +12,9 @@ import java.util.List;
  * The type Product price calculator controller.
  */
 public class CheapestProductController {
-    private CheapestProduct cheapest;
+    private volatile CheapestProduct cheapest;
 
-    private synchronized void updateCheapest(CheapestProduct cheapestProduct) {
+    private void updateCheapest(CheapestProduct cheapestProduct) {
         // If we don't have a cheapest product, just set the first product to cheapest
         if (cheapest == null) {
             cheapest = cheapestProduct;
@@ -24,7 +24,18 @@ public class CheapestProductController {
         // If the difference is 0 or below that means the new product isn't cheaper
         if (cheapest.getPrice().compareTo(cheapestProduct.getPrice()) <= 0) return;
 
-        cheapest = cheapestProduct;
+        // If we reach this point we need to acquire a lock as we're going to write.
+        synchronized(this) {
+            // Same checks as earlier
+            if (cheapest == null) {
+                cheapest = cheapestProduct;
+
+                return;
+            }
+            if (cheapest.getPrice().compareTo(cheapestProduct.getPrice()) <= 0) return;
+
+            cheapest = cheapestProduct;
+        }
     }
 
     public CheapestProduct findCheapestProduct(Specification specification, List<Product> products) throws InterruptedException {
