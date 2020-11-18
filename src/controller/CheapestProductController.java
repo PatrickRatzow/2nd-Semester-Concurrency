@@ -15,8 +15,8 @@ public class CheapestProductController {
     private volatile CheapestProduct cheapest;
 
     private void updateCheapest(CheapestProduct cheapestProduct) {
-        // Perform checks to see if we need to write
-        if (cheapest != null && cheapest.getPrice().compareTo(cheapestProduct.getPrice()) > 0)
+        // Perform checks to see if a write is needed
+        if (cheapest != null && cheapest.getPrice().compareTo(cheapestProduct.getPrice()) <= 0)
             return;
 
         // Acquire a lock as we wanna write
@@ -42,12 +42,21 @@ public class CheapestProductController {
         final int size = products.size();
         for (int i = 0; i < size; i++) {
             Product product = products.get(i);
-            specification.setProduct(product);
+            /*
+             * We need to clone our specification as Java uses internal pointers.
+             *
+             * Meaning that if we were to manipulate the specification parameter every iteration
+             * we would manipulate the same object over and over.
+             *
+             * By cloning it we make sure each iteration has it's own unique object.
+             */
+            Specification spec = specification.clone();
+            spec.setProduct(product);
             // For testing we have this locked at 1
-            specification.setQuantity(1);
+            spec.setQuantity(1);
 
             // Supply the specification + our consumer
-            Thread thread = new CheapestAlgorithm(specification, this::updateCheapest);
+            Thread thread = new CheapestAlgorithm(spec, this::updateCheapest);
             threads.add(thread);
         }
 
@@ -55,8 +64,8 @@ public class CheapestProductController {
          * It's actually more performant to start the threads in a separate for loop if we have a lot of products.
          *
          * This is due to the fact that we will have a lot less interrupts on the main thread
-         *   when our callback comes back from a worker thread, as by now our main thread is doing nothing;
-         *   while it would be busy populating the threads List if we started the threads in the previous for loop.
+         * when our callback comes back from a worker thread, as by now our main thread is doing nothing;
+         * while it would be busy populating the threads List if we started the threads in the previous for loop.
          */
         for (Thread t : threads) {
             t.start();
